@@ -19,30 +19,25 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="container">
-      <div class="header">
-        <div id="main">
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="page-header">
           <h1>Welcome to Checker</h1>
-
-          <div id="logins">
-            <p>Please Login first!</p>
-            <a id="login" href="#" class="btn btn-default">Login</a>
-            <a id="fakeLogin" href="javascript:fakeLogin();" class="btn btn-primary">Fake Login</a>
-          </div>
-          <div>
-            <a href="javascript:check();" class="btn btn-primary">Check</a>
-          </div>
         </div>
       </div>
-
-      <div ng-view=""></div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
+    </header>
+    <!-- Content -->
+    <div class="container">
+      <div ng-view="" class="row"></div>
     </div>
-
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+        </div>
+      </div>
+    </footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
