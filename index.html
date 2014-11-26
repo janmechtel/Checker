@@ -1,0 +1,100 @@
+<!doctype html> <html class="no-js"> <head> <meta charset="utf-8"> <title></title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/main.8d5eca14.css">  <body ng-app="checkerApp"> <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <!-- Header --> <header> <div class="container"> <div class="page-header"> <h1>Welcome to Checker</h1> </div> </div> </header> <!-- Content --> <div class="container"> <div ng-view="" class="row"></div> </div> <!-- Footer --> <footer> <div class="container"> <div class="row"> </div> </div> </footer> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');</script> <!--[if lt IE 9]>
+    <script src="scripts/oldieshim.d48d8270.js"></script>
+    <![endif]--> <script src="scripts/vendor.2e1ffff2.js"></script> <script src="scripts/scripts.1ae4f63d.js"></script> <!-- vendor scripts --> <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script> <!-- Parse code --> <script type="text/javascript">Parse.initialize("HYhdYRTcHtYiwkb9GYRaR8B8DTEMMExawkLbgiZh", "jA1BsowwPZngJzQK3sHIn1wEmxGgfZTQZIlmPZjj");
+
+      window.fbAsyncInit = function() {
+        Parse.FacebookUtils.init({
+          // this line replaces FB.init
+          appId      : '1547221612159475', // Facebook App ID
+          status     : true, // check Facebook Login status
+          cookie     : true, // enable cookies to allow Parse to access the session
+          xfbml      : true,
+          version    : 'v2.2'
+        });
+      };
+
+      window.onload = function() {
+
+        var currentUser = Parse.User.current();
+        if (currentUser) {
+          $('#logins').hide();
+        }
+        var a = document.getElementById("login");
+        a.onclick = function() {
+          Parse.FacebookUtils.logIn(null, {
+            success: function(user) {
+              if (!user.existed()) {
+                alert("User signed up and logged in through Facebook!");
+              } else {
+                alert("User logged in through Facebook!");
+              }
+            },
+            error: function(user, error) {
+              alert("User cancelled the Facebook login or did not fully authorize.");
+            }
+          });
+          return false;
+        }
+      }
+
+      function readChecks() {
+
+      }
+
+      function check() {
+        var currentUser = Parse.User.current();
+        if (currentUser) {
+          var Check = Parse.Object.extend("Check");
+          var check = new Check();
+          check.set("type", "Water");
+          check.setACL(new Parse.ACL(Parse.User.current()));
+          check.save();
+        } else {
+          alert('Login first!')
+        }
+      }
+
+      function fakeLogin() {
+
+        Parse.User.logIn("my name", "my pass", {
+          success: function(user) {
+            alert('Succesful fake login.')
+          },
+          error: function(user, error) {
+            var user = new Parse.User();
+            user.set("username", "my name");
+            user.set("password", "my pass");
+            user.set("email", "email@example.com");
+
+            // other fields can be set just like with Parse.Object
+            user.set("phone", "415-392-0202");
+
+            user.signUp(null, {
+              success: function(user) {
+                // Hooray! Let them use the app now.
+              },
+              error: function(user, error) {
+                // Show the error message somewhere and let the user try again.
+                alert("Error: " + error.code + " " + error.message);
+              }
+            });
+          }
+        });
+
+      }
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>  
