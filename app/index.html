@@ -130,23 +130,6 @@
         }
       }
 
-      function readChecks() {
-
-      }
-
-      function check() {
-        var currentUser = Parse.User.current();
-        if (currentUser) {
-          var Check = Parse.Object.extend("Check");
-          var check = new Check();
-          check.set("type", "Water");
-          check.setACL(new Parse.ACL(Parse.User.current()));
-          check.save();
-        } else {
-          alert('Login first!')
-        }
-      }
-
       function fakeLogin() {
 
         Parse.User.logIn("my name", "my pass", {
