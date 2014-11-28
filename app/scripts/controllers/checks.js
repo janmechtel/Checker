@@ -20,6 +20,11 @@ angular.module('checkerApp')
       $scope.checks = new collection();
       $scope.checks.query = new Parse.Query(check);
       $scope.checks.query.equalTo('type', $scope.type);
+      $scope.checks.query.equalTo('type', $scope.type);
+
+      var now = new Date();
+      var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      $scope.checks.query.greaterThanOrEqualTo('createdAt',startOfDay);
       $scope.checks.fetch();
     };
 
@@ -32,8 +37,9 @@ angular.module('checkerApp')
         var check = new Check();
         check.set('type', $scope.type);
         check.setACL(new Parse.ACL(currentUser));
-        check.save();
-        $scope.checks.fetch();
+        check.save(null, {
+          success: function(result){$scope.checks.fetch();}
+        });
       } else {
         alert('Login first!')
       }
