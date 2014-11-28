@@ -6,8 +6,12 @@
   </div>
 </div>
 <div class="col-md-12">
-  <div class="well" ng-controller="ChecksCtrl as main">
-    <span ng-repeat="check in checks.models">X </span>
-    <a class="btn btn-primary" ng-click="addCheck('water')">Check Water</a>
+  <div class="well" ng-controller="ChecksCtrl" ng-init="init('water')">
+    <a class="btn btn-primary" ng-click="addCheck()">Check Water</a>
+    <span ng-repeat="check in checks.models">W </span>
+  </div>
+  <div class="well" ng-controller="ChecksCtrl" ng-init="init('food')">
+    <a class="btn btn-primary" ng-click="addCheck()">Check Food</a>
+    <span ng-repeat="check in checks.models">F </span>
   </div>
 </div>
