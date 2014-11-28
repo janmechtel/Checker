@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name checkerApp.controller:MainCtrl
+ * @name checkerApp.controller:ChecksCtrl
  * @description
  * # ChecksCtrl
  * Controller of the checkerApp
@@ -20,15 +20,13 @@ angular.module('checkerApp')
       $scope.checks = new collection();
       $scope.checks.query = new Parse.Query(check);
       $scope.checks.query.equalTo('type', $scope.type);
-      $scope.checks.query.equalTo('type', $scope.type);
 
       var now = new Date();
       var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       $scope.checks.query.greaterThanOrEqualTo('createdAt',startOfDay);
+
       $scope.checks.fetch();
     };
-
-
 
     $scope.addCheck = function() {
       var currentUser = Parse.User.current();
