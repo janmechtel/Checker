@@ -15,7 +15,12 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'parse-angular',
+	  'parse-angular.enhance',
+    'ParseServices' /* this is the Parse SDK */,
+    'FacebookPatch' /* our facebook angular wrapper so we can use FB.apiAngular instead of FB.api */
+
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -30,4 +35,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+
+  .run(['ParseSDK', function(ParseService) {
+  }]);

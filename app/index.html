@@ -79,12 +79,15 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/parse-angular-patch/dist/parse-angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/FacebookAngularPatch.js"></script>
+        <script src="scripts/services/ParseServices.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <!-- endbuild -->
 
@@ -93,21 +96,7 @@
 
     <!-- Parse code -->
     <script type="text/javascript">
-      Parse.initialize("HYhdYRTcHtYiwkb9GYRaR8B8DTEMMExawkLbgiZh", "jA1BsowwPZngJzQK3sHIn1wEmxGgfZTQZIlmPZjj");
-
-      window.fbAsyncInit = function() {
-        Parse.FacebookUtils.init({
-          // this line replaces FB.init
-          appId      : '1547221612159475', // Facebook App ID
-          status     : true, // check Facebook Login status
-          cookie     : true, // enable cookies to allow Parse to access the session
-          xfbml      : true,
-          version    : 'v2.2'
-        });
-      };
-
       window.onload = function() {
-
         var currentUser = Parse.User.current();
         if (currentUser) {
           $('#logins').hide();
@@ -167,5 +156,15 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
+
+    <!-- Async resolve promise when FB SDK is loaded, this triggers Parse.FacebookUtils.init() -->
+    <script>
+      var fbDeferred = $.Deferred();
+      window.fbPromise = fbDeferred.promise();
+      window.fbAsyncInit = function() {
+        fbDeferred.resolve();
+      };
+    </script>
+
   </body>
 </html>
